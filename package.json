@@ -1,0 +1,34 @@
+{
+  "name": "TheProjectBuilder",
+  "version": "0.1.0",
+  "description": "Watch sass and react",
+  "author": "Rory Ashford <rory@roikles.com>",
+  "scripts": {
+    "sass:css": "node-sass style.scss style.css --output-style expanded",
+    "sass:postcss": "postcss --use autoprefixer -o style.css style.css",
+    "sass:cssnano": "cssnano style.css style.css --no-autoprefixer --no-convertValues",
+    "sass": "npm run -s sass:css && npm run -s sass:postcss",
+    "react": "browserify -t [ babelify --presets [ react ] ] components/app/index.js -o index.js && uglifyjs index.js -o index.js",
+    "watch:sass": "fsmonitor -d ./ -q '+*.scss' npm run -s sass",
+    "watch:react": "fsmonitor -d components/ -q '+*.js' npm run react",
+    "browsersync": "browser-sync start --files ./ --files '!.git/*' --no-open --proxy localhost/dash",
+    "watch": "npm run -s browsersync & npm run -s watch:sass & npm run watch:react"
+  },
+  "devDependencies": {
+    "babel-preset-react": "^6.11.1",
+    "babelify": "^7.3.0",
+    "browserify": "^12.0.1",
+    "browserify-shim": "^3.8.12",
+    "cssnano": "^3.4.0",
+    "cssnano-cli": "^1.0.3",
+    "eslint": "^3.0.1",
+    "eslint-config-standard": "^5.3.5",
+    "eslint-plugin-standard": "^2.0.0",
+    "fsmonitor": "^0.2.4",
+    "node-sass": "^3.4.2",
+    "postcss-cli": "^2.3.2",
+    "react": "^15.2.1",
+    "react-dom": "^15.2.1",
+    "uglify-js": "^2.6.1"
+  }
+}
